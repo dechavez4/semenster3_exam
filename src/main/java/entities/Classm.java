@@ -106,8 +106,4 @@ public class Classm implements Serializable {
         return "Classm{" + "id=" + id + ", semester=" + semester + ", maxNumberOfStudents=" + maxNumberOfStudents + ", teachers=" + teachers + ", signUps=" + signUps + '}';
     }
     
-
-
- 
-    
 }
