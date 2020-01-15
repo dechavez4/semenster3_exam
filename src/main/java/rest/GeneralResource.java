@@ -19,6 +19,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
@@ -34,40 +35,53 @@ import utils.SetupTestUsers;
  */
 @Path("school")
 public class GeneralResource {
-      private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
+
+    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
             "pu",
             "jdbc:mysql://localhost:3307/fullstack_spa",
             "dev",
             "ax2",
             EMF_Creator.Strategy.DROP_AND_CREATE);
-    
+    private static final GeneralFacade FACADE = GeneralFacade.getGeneralFacade(EMF);
+
     @GET
     @Path("setup")
     @Produces(MediaType.APPLICATION_JSON)
-    public CourseDTO setup(){
+    public CourseDTO setup() {
         EntityManager em = EMF.createEntityManager();
         Course course = new Course("IT", "IT is a good course");
         Classm class1 = new Classm("1", 30);
         Teacher teacher = new Teacher("Vincent");
-        
+
         Date passedDate = Date.valueOf(LocalDate.now());
         SignUp signup = new SignUp("10");
         Student student = new Student("Renz", "renz@hotmail.com");
-        
+
         class1.setTeacher(teacher);
         signup.setStudent(student);
         signup.setPassedDate(passedDate);
-        course.setClassm(class1);        
+        course.setClassm(class1);
         class1.setSignUp(signup);
-        
+
         CourseDTO cDTO = new CourseDTO(course);
-        try{
+        try {
             em.getTransaction().begin();
             em.persist(course);
             em.getTransaction().commit();
-        }finally{
+        } finally {
             em.close();
         }
         return cDTO;
     }
+
+    @GET
+    @Path("all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<CourseDTO> getAllCourseInfo() {
+        System.out.println(FACADE.GetAllCourse());
+        return FACADE.GetAllCourse();
+    }
+    
+    
+    
 }

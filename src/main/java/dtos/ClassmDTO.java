@@ -6,6 +6,9 @@
 package dtos;
 
 import entities.Classm;
+import entities.Teacher;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -24,8 +27,9 @@ public class ClassmDTO {
         if(classm.getId() != null){
             this.id = classm.getId();
         }
-        this.semester = semester;
-        this.maxNumberOfStudents = maxNumberOfStudents;
+        this.semester = classm.getSemester();
+        this.maxNumberOfStudents = classm.getMaxNumberOfStudents();
+
     }
 
     public Integer getId() {

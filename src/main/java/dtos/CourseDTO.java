@@ -5,7 +5,10 @@
  */
 package dtos;
 
+import entities.Classm;
 import entities.Course;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,6 +18,7 @@ public class CourseDTO {
     private Integer id;
     private String courseName;
     private String description;
+    private List<ClassmDTO> classms = new ArrayList<>();
     
     public CourseDTO(){
         
@@ -27,6 +31,11 @@ public class CourseDTO {
         
         this.courseName = course.getCourseName();
         this.description = course.getDescription();
+        
+        for (Classm classm : course.getClassms()) {
+            this.classms.add(new ClassmDTO(classm));
+        }
+        
     }
 
     public Integer getId() {
@@ -41,6 +50,10 @@ public class CourseDTO {
         return description;
     }
 
+    public List<ClassmDTO> getClassms() {
+        return classms;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -53,10 +66,16 @@ public class CourseDTO {
         this.description = description;
     }
 
+    public void setClassms(List<ClassmDTO> classms) {
+        this.classms = classms;
+    }
+
     @Override
     public String toString() {
-        return "CourseDTO{" + "id=" + id + ", courseName=" + courseName + ", description=" + description + '}';
+        return "CourseDTO{" + "id=" + id + ", courseName=" + courseName + ", description=" + description + ", classms=" + classms + '}';
     }
+
+ 
     
     
 }
