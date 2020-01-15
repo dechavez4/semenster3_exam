@@ -4,9 +4,6 @@
   <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entities.RenameMe</class>
-    <class>entities.Person</class>
-    <class>entities.Hobby</class>
-    <class>entities.Address</class>
     <class>entities.Course</class>
     <class>entities.Teacher</class>
     <class>entities.SignUp</class>

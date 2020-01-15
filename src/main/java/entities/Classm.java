@@ -8,10 +8,14 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,14 +26,19 @@ public class Classm implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String semester;
     private int maxNumberOfStudents;
     
-    private List<Course> courses = new ArrayList<>();
+    @ManyToOne
+    private Course course;
+
+    @ManyToMany(cascade = CascadeType.PERSIST )
+    private List<Teacher> teachers = new ArrayList<>();
     
-    private SignUp signUp;
+    @OneToMany(mappedBy = "classm", cascade = CascadeType.PERSIST)
+    private List<SignUp> signUps = new ArrayList<>();
 
     
     public Classm(){
@@ -42,7 +51,7 @@ public class Classm implements Serializable {
         this.maxNumberOfStudents = maxNumberOfStudents;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -54,15 +63,19 @@ public class Classm implements Serializable {
         return maxNumberOfStudents;
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public List<Teacher> getTeachers() {
+        return teachers;
     }
 
-    public SignUp getSignUp() {
-        return signUp;
+    public List<SignUp> getSignUps() {
+        return signUps;
     }
 
-    public void setId(Long id) {
+    public Course getCourse() {
+        return course;
+    }
+    
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -74,32 +87,29 @@ public class Classm implements Serializable {
         this.maxNumberOfStudents = maxNumberOfStudents;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setTeacher(Teacher teacher) {
+        this.teachers.add(teacher);
+        teacher.setClassm(this);
     }
 
-    public void setSignUp(SignUp signUp) {
-        this.signUp = signUp;
+    public void setSignUp(SignUp signup) {
+        this.signUps.add(signup);
+        signup.setClassm(this);
     }
 
- 
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Classm)) {
-            return false;
-        }
-        Classm other = (Classm) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setCourse(Course course) {
+        this.course = course;
     }
+    
+    
 
     @Override
     public String toString() {
-        return "entities.Class[ id=" + id + " ]";
+        return "Classm{" + "id=" + id + ", semester=" + semester + ", maxNumberOfStudents=" + maxNumberOfStudents + ", teachers=" + teachers + ", signUps=" + signUps + '}';
     }
+    
+
+
+ 
     
 }
