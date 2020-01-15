@@ -5,6 +5,7 @@
  */
 package facades;
 
+import dtos.ClassmDTO;
 import dtos.CourseDTO;
 import entities.Classm;
 import entities.Course;
@@ -41,10 +42,33 @@ public class GeneralFacade {
         } finally {
             em.close();
         }
-       
+
         return listDTO;
     }
-    
-    
 
+    public CourseDTO deleteCourse(int id) {
+        EntityManager em = emf.createEntityManager();
+        Course course = em.find(Course.class, id);
+        try {
+            em.getTransaction().begin();
+            em.remove(course);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new CourseDTO(course);
+    }
+    
+    public ClassmDTO deleteClassm(int id){
+        EntityManager em = emf.createEntityManager();
+        Classm classm = em.find(Classm.class, id);
+        try{
+            em.getTransaction().begin();
+            em.remove(classm);
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+        return new ClassmDTO(classm);
+    }
 }

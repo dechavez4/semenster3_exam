@@ -34,10 +34,10 @@ public class Classm implements Serializable {
     @ManyToOne
     private Course course;
 
-    @ManyToMany(cascade = CascadeType.PERSIST )
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Teacher> teachers = new ArrayList<>();
     
-    @OneToMany(mappedBy = "classm", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "classm", cascade = CascadeType.PERSIST, orphanRemoval=true)
     private List<SignUp> signUps = new ArrayList<>();
 
     

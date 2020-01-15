@@ -5,6 +5,7 @@
  */
 package rest;
 
+import dtos.ClassmDTO;
 import dtos.CourseDTO;
 import entities.Classm;
 import entities.Course;
@@ -22,8 +23,10 @@ import java.time.temporal.WeekFields;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator;
@@ -41,7 +44,7 @@ public class GeneralResource {
             "jdbc:mysql://localhost:3307/fullstack_spa",
             "dev",
             "ax2",
-            EMF_Creator.Strategy.DROP_AND_CREATE);
+            EMF_Creator.Strategy.CREATE);
     private static final GeneralFacade FACADE = GeneralFacade.getGeneralFacade(EMF);
 
     @GET
@@ -82,6 +85,17 @@ public class GeneralResource {
         return FACADE.GetAllCourse();
     }
     
+    @DELETE
+    @Path("delete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CourseDTO deleteCourse(@PathParam("id") int id){
+        return FACADE.deleteCourse(id);
+    }
     
-    
+    @DELETE
+    @Path("delete/classm/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ClassmDTO deleteClassm(@PathParam("id") int id){
+        return FACADE.deleteClassm(id);
+    }
 }

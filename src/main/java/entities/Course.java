@@ -31,7 +31,7 @@ public class Course implements Serializable {
     private String courseName;
     private String description;
     
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval=true)
     @JoinColumn
     private List<Classm> classms = new ArrayList<>();
     
