@@ -21,8 +21,8 @@ public class SetupTestUsers {
     // Whatever you do DO NOT COMMIT and PUSH with the real passwords
 
     User user = new User("user", "test1");
-    User admin = new User("admin", "test1");
-    User both = new User("user_admin", "test1");
+    User admin = new User("admin", "test12");
+    User both = new User("user_admin", "test123");
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
       throw new UnsupportedOperationException("You have not changed the passwords");
