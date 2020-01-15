@@ -100,9 +100,7 @@ public class Classm implements Serializable {
     public void setCourse(Course course) {
         this.course = course;
     }
-    
-    
-
+   
     @Override
     public String toString() {
         return "Classm{" + "id=" + id + ", semester=" + semester + ", maxNumberOfStudents=" + maxNumberOfStudents + ", teachers=" + teachers + ", signUps=" + signUps + '}';

@@ -61,7 +61,6 @@ public class Teacher implements Serializable {
 
     public void setClassm(Classm classm) {
         this.classm.add(classm);
-        classm.setTeacher(this);
     }
 
     @Override

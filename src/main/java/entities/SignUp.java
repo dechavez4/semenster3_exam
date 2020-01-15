@@ -6,10 +6,10 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,8 +30,9 @@ public class SignUp implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String grade;
-    @Temporal(TemporalType.DATE)
-    private Date passedDate;
+    
+    @Temporal(TemporalType.DATE) 
+    private java.util.Date passedDate;
     
     
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -44,10 +45,8 @@ public class SignUp implements Serializable {
         
     }
 
-    public SignUp(String grade, Date passedDate) {
-        this.id = id;
+    public SignUp(String grade) {
         this.grade = grade;
-        this.passedDate = passedDate;
     }
 
     public Integer getId() {
