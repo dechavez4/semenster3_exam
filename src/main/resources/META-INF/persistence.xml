@@ -7,6 +7,11 @@
     <class>entities.Person</class>
     <class>entities.Hobby</class>
     <class>entities.Address</class>
+    <class>entities.Course</class>
+    <class>entities.Teacher</class>
+    <class>entities.SignUp</class>
+    <class>entities.Student</class>
+    <class>entities.Classm</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!-- DO NOT remove the line below. It's not set by the  entityUtils.EMF_Creator -->
