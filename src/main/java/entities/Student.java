@@ -31,6 +31,7 @@ public class Student implements Serializable {
     @OneToMany(mappedBy = "student", orphanRemoval=true)
     private List<SignUp> signups = new ArrayList<>();
     
+    
     public Student(){
         
     }

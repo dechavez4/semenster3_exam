@@ -7,8 +7,10 @@ package facades;
 
 import dtos.ClassmDTO;
 import dtos.CourseDTO;
+import dtos.StudentDTO;
 import entities.Classm;
 import entities.Course;
+import entities.Student;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -46,6 +48,20 @@ public class GeneralFacade {
         return listDTO;
     }
 
+    public CourseDTO addCourse(CourseDTO course) {
+        EntityManager em = emf.createEntityManager();
+        Course c = new Course(course.getCourseName(), course.getDescription());
+        try {
+            em.getTransaction().begin();
+            em.persist(c);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+        return new CourseDTO(c);
+    }
+
     public CourseDTO deleteCourse(int id) {
         EntityManager em = emf.createEntityManager();
         Course course = em.find(Course.class, id);
@@ -58,17 +74,32 @@ public class GeneralFacade {
         }
         return new CourseDTO(course);
     }
-    
-    public ClassmDTO deleteClassm(int id){
+
+    public ClassmDTO deleteClassm(int id) {
         EntityManager em = emf.createEntityManager();
         Classm classm = em.find(Classm.class, id);
-        try{
+        try {
             em.getTransaction().begin();
             em.remove(classm);
             em.getTransaction().commit();
-        }finally{
+        } finally {
             em.close();
         }
         return new ClassmDTO(classm);
     }
+
+    public StudentDTO getStudentByID(String username) {
+        EntityManager em = emf.createEntityManager();
+        //Student s = em.find(Student.class, username);
+        
+        Student foundStudent = (Student)em.createQuery("SELECT s FROM Student s WHERE s.name = '" + username + "'", Student.class).getSingleResult();
+        
+        try {
+            StudentDTO student = new StudentDTO(foundStudent);
+            return student;
+        }finally{
+            em.close();
+        }
+    }
+
 }

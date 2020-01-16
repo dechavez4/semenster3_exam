@@ -7,6 +7,7 @@ package rest;
 
 import dtos.ClassmDTO;
 import dtos.CourseDTO;
+import dtos.StudentDTO;
 import entities.Classm;
 import entities.Course;
 import entities.SignUp;
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -53,7 +56,7 @@ public class GeneralResource {
     public CourseDTO setup() {
         EntityManager em = EMF.createEntityManager();
         Course course = new Course("IT", "IT is a good course");
-        Classm class1 = new Classm("1", 30);
+        Classm class1 = new Classm("spring2020, fall2020, summer2020", 30);
         Teacher teacher = new Teacher("Vincent");
 
         Date passedDate = Date.valueOf(LocalDate.now());
@@ -92,10 +95,26 @@ public class GeneralResource {
         return FACADE.deleteCourse(id);
     }
     
+    @POST
+    @Path("course/add")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CourseDTO addCourse(CourseDTO course){
+        return FACADE.addCourse(course);
+    }
+    
     @DELETE
     @Path("delete/classm/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public ClassmDTO deleteClassm(@PathParam("id") int id){
         return FACADE.deleteClassm(id);
     }
+    
+    @GET
+    @Path("studentid/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public StudentDTO getStudentByID(@PathParam("username") String username ){
+        StudentDTO student = FACADE.getStudentByID(username);
+        return student;
+    }
+    
 }
