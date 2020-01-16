@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,6 +24,7 @@ import javax.persistence.TemporalType;
  * @author Renz
  */
 @Entity
+@NamedQuery(name = "SignUp.deleteAllRows", query = "DELETE from SignUp")
 public class SignUp implements Serializable {
 
     private static final long serialVersionUID = 1L;
